@@ -12,13 +12,13 @@
 export const contacts = {
   // Format international, sans espaces, sans le +.
   // C'est ce format qu'attend le lien wa.me.
-  whatsapp: 'TON_NUMERO_ICI',
+  whatsapp: '261340657982',
 
   facebook: 'TON_LIEN_FACEBOOK_ICI',
 
   // Affiché tel quel sur la page. Peut être mis en forme
   // librement, il ne sert pas au lien.
-  telephoneAffiche: 'TON_NUMERO_LISIBLE_ICI',
+  telephoneAffiche: '+261 34 06 57 982',
 
   ville: 'Toliara 601, Madagascar',
 };
