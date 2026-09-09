@@ -15,12 +15,12 @@ import { getFirestore } from 'firebase/firestore';
  * n'est accessible.
  */
 const configuration = {
-  apiKey: 'À_REMPLIR',
-  authDomain: 'smdg-f82d0.firebaseapp.com',
+  apiKey: "AIzaSyAkxBFGJowIA5Qmn-YI9LRNBNXEMUfLDcE",
+  authDomain: "smdg-f82d0.firebaseapp.com",
   projectId: 'smdg-f82d0',
-  storageBucket: 'À_REMPLIR',
-  messagingSenderId: 'À_REMPLIR',
-  appId: 'À_REMPLIR',
+  storageBucket: "smdg-f82d0.firebasestorage.app",
+  messagingSenderId: "736529987850",
+  appId: "1:736529987850:web:e334483c1f8090e0dd62f3",
 };
 
 const application = initializeApp(configuration);
