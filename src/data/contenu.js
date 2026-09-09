@@ -18,7 +18,7 @@ export const contacts = {
 
   // Affiché tel quel sur la page. Peut être mis en forme
   // librement, il ne sert pas au lien.
-  telephoneAffiche: '+261 34 06 57 982',
+  telephoneAffiche: '+261 34 06 579 82',
 
   ville: 'Toliara 601, Madagascar',
 };
