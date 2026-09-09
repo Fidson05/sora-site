@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    /* Défilement doux quand on clique sur un lien d'ancre du menu. */
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-fond text-texte-moyen font-sans antialiased;
+  }
+
+  /* Les titres portent le niveau fort, le corps le niveau moyen.
+     C'est cette séparation qui rend une page lisible plutôt que
+     fatigante. */
+  h1, h2, h3, h4 {
+    @apply text-texte-fort font-bold;
+    letter-spacing: -0.02em;
+  }
+
+  /* Certaines personnes désactivent les animations dans leur
+     système, souvent pour des raisons médicales. On les respecte
+     partout, sans exception. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Largeur de contenu commune à toutes les sections : sans elle,
+     le texte s'étirerait sur toute la largeur d'un écran
+     d'ordinateur et deviendrait illisible. */
+  .conteneur {
+    @apply max-w-contenu mx-auto px-5 sm:px-8;
+  }
+
+  .section {
+    @apply py-16 sm:py-24;
+  }
+
+  .bouton-principal {
+    @apply inline-flex items-center justify-center gap-2
+           bg-orange hover:bg-orange-dark
+           text-white font-semibold
+           px-7 py-4 rounded-bouton
+           transition-all duration-200
+           shadow-douce
+           hover:-translate-y-0.5 hover:shadow-lg
+           active:translate-y-0;
+  }
+
+  .bouton-secondaire {
+    @apply inline-flex items-center justify-center gap-2
+           bg-white hover:bg-surface-alt
+           text-texte-fort font-semibold
+           px-7 py-4 rounded-bouton
+           border border-bordure
+           transition-all duration-200
+           hover:-translate-y-0.5;
+  }
+
+  .carte {
+    @apply bg-surface rounded-card p-6 border border-bordure
+           transition-all duration-300
+           hover:shadow-douce hover:-translate-y-1;
+  }
+
+  .etiquette {
+    @apply inline-flex items-center gap-1.5
+           text-xs font-bold px-3 py-1.5 rounded-lg;
+  }
+}
+
+@layer utilities {
+  /* Apparition en cascade du haut de page. Chaque élément part
+     légèrement plus bas et remonte, décalé de son voisin. */
+  .entree {
+    animation: entree 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes entree {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Flottaison des pastilles. Très lente et de faible amplitude :
+     un mouvement visible deviendrait vite agaçant sur une page
+     qu'on lit. */
+  .flottant {
+    animation: flottement 5s ease-in-out infinite;
+  }
+
+  .flottant-lent {
+    animation: flottement 7s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+
+  @keyframes flottement {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+}
