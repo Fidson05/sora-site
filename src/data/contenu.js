@@ -14,7 +14,7 @@ export const contacts = {
   // C'est ce format qu'attend le lien wa.me.
   whatsapp: '261340657982',
 
-  facebook: 'TON_LIEN_FACEBOOK_ICI',
+  facebook: 'https://www.facebook.com/share/1E9aeBWWBh/?mibextid=wwXIfr',
 
   // Affiché tel quel sur la page. Peut être mis en forme
   // librement, il ne sert pas au lien.
