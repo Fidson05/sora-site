@@ -34,7 +34,7 @@ export const lienWhatsapp = `https://wa.me/${contacts.whatsapp}`;
  */
 export const telechargement = {
   // À REMPLIR — lien de partage Drive, en accès public
-  lien: 'https://hr8bkn7ncfgupakm.public.blob.vercel-storage.com/Sora.apk',
+  lien: 'https://github.com/Fidson05/sora-apk/releases/download/v1.0.0/Sora.apk',
 
   version: '1.2.0',
   taille: '53 Mo',
