@@ -104,19 +104,16 @@
     }
   }
 
-  /* Flottaison des pastilles : activée uniquement sur PC/Tablette (sm:)
-     pour préserver 100% du GPU mobile lors du scroll */
-  @media (min-width: 640px) {
-    .flottant {
-      animation: flottement 5s ease-in-out infinite;
-      will-change: transform;
-    }
+  /* Flottaison des pastilles : activée sur mobile et desktop avec rendu fluide */
+  .flottant {
+    animation: flottement 5s ease-in-out infinite;
+    will-change: transform;
+  }
 
-    .flottant-lent {
-      animation: flottement 7s ease-in-out infinite;
-      animation-delay: 1s;
-      will-change: transform;
-    }
+  .flottant-lent {
+    animation: flottement 7s ease-in-out infinite;
+    animation-delay: 1s;
+    will-change: transform;
   }
 
   @keyframes flottement {
@@ -124,7 +121,7 @@
       transform: translate3d(0, 0, 0);
     }
     50% {
-      transform: translate3d(0, -8px, 0);
+      transform: translate3d(0, -6px, 0);
     }
   }
 

@@ -3,8 +3,8 @@ import { marque, telechargement, chiffres } from '../data/contenu';
 
 export default function Hero() {
   return (
-    <section className="relative pt-28 sm:pt-36 pb-16 sm:pb-20 overflow-hidden">
-      {/* Halo orange : Masqué ou très léger sur mobile (hidden sm:block) pour éviter de faire ramer le GPU */}
+    <section className="relative pt-28 sm:pt-36 pb-16 sm:pb-20 overflow-x-clip">
+      {/* Halo orange */}
       <div
         aria-hidden
         className="hidden sm:block absolute -top-40 -right-32 w-[560px] h-[560px] rounded-full bg-orange-light blur-2xl opacity-50 pointer-events-none"
@@ -85,7 +85,6 @@ export default function Hero() {
             style={{ animationDelay: '250ms' }}
           >
             <div className="flex justify-center lg:justify-end">
-              {/* Image Hero : Priorité haute (fetchpriority/loading eager) avec GPU acceleration */}
               <img
                 src="/captures/accueil.png"
                 alt="L'écran d'accueil de l'application SORA"
@@ -93,20 +92,22 @@ export default function Hero() {
                 height={680}
                 loading="eager"
                 fetchPriority="high"
-                className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[520px] h-auto will-change-transform"
+                className="w-full max-w-[300px] sm:max-w-[420px] lg:max-w-[520px] h-auto will-change-transform"
               />
             </div>
 
-            <div className="hidden lg:flex absolute top-20 left-0 items-center gap-2 bg-white rounded-bouton px-4 py-3 shadow-douce border border-bordure flottant">
-              <Store size={17} className="text-dispo" />
-              <span className="text-sm font-semibold text-texte-fort">
+            {/* Badge Gauche : Stock local */}
+            <div className="flex absolute top-16 -left-2 sm:left-4 lg:left-0 items-center gap-2 bg-white rounded-bouton px-3 py-2 sm:px-4 sm:py-3 shadow-douce border border-bordure flottant scale-90 sm:scale-100 z-10">
+              <Store size={17} className="text-dispo shrink-0" />
+              <span className="text-xs sm:text-sm font-semibold text-texte-fort whitespace-nowrap">
                 Stock local
               </span>
             </div>
 
-            <div className="hidden lg:flex absolute bottom-24 right-0 items-center gap-2 bg-white rounded-bouton px-4 py-3 shadow-douce border border-bordure flottant-lent">
-              <Link2 size={17} className="text-orange" />
-              <span className="text-sm font-semibold text-texte-fort">
+            {/* Badge Droit : Commande par lien */}
+            <div className="flex absolute bottom-20 -right-2 sm:right-4 lg:right-0 items-center gap-2 bg-white rounded-bouton px-3 py-2 sm:px-4 sm:py-3 shadow-douce border border-bordure flottant-lent scale-90 sm:scale-100 z-10">
+              <Link2 size={17} className="text-orange shrink-0" />
+              <span className="text-xs sm:text-sm font-semibold text-texte-fort whitespace-nowrap">
                 Commande par lien
               </span>
             </div>
