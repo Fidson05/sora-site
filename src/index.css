@@ -4,25 +4,31 @@
 
 @layer base {
   html {
-    /* Défilement doux quand on clique sur un lien d'ancre du menu. */
+    /* Défilement doux lors du clic sur les liens d'ancre */
     scroll-behavior: smooth;
+    /* Évite les rebonds de scroll violents sur iOS/Safari */
+    overscroll-behavior-y: none;
+    /* Espace de sécurité pour le scroll vers une ancre si le header est fixe */
+    scroll-padding-top: 80px;
   }
 
   body {
     @apply bg-fond text-texte-moyen font-sans antialiased;
+    /* Empêche le décalage/tremblement horizontal lors du scroll */
+    overflow-x: hidden;
+    width: 100%;
+    /* Rendu net des polices */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Les titres portent le niveau fort, le corps le niveau moyen.
-     C'est cette séparation qui rend une page lisible plutôt que
-     fatigante. */
+  /* Les titres portent le niveau fort, le corps le niveau moyen. */
   h1, h2, h3, h4 {
     @apply text-texte-fort font-bold;
     letter-spacing: -0.02em;
   }
 
-  /* Certaines personnes désactivent les animations dans leur
-     système, souvent pour des raisons médicales. On les respecte
-     partout, sans exception. */
+  /* Respect des préférences de réduction de mouvement */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -36,9 +42,6 @@
 }
 
 @layer components {
-  /* Largeur de contenu commune à toutes les sections : sans elle,
-     le texte s'étirerait sur toute la largeur d'un écran
-     d'ordinateur et deviendrait illisible. */
   .conteneur {
     @apply max-w-contenu mx-auto px-5 sm:px-8;
   }
@@ -47,15 +50,17 @@
     @apply py-16 sm:py-24;
   }
 
+  /* Remplacement de transition-all par des transitions ciblées GPU */
   .bouton-principal {
     @apply inline-flex items-center justify-center gap-2
            bg-orange hover:bg-orange-dark
            text-white font-semibold
            px-7 py-4 rounded-bouton
-           transition-all duration-200
+           transition-[transform,background-color,box-shadow] duration-200
            shadow-douce
            hover:-translate-y-0.5 hover:shadow-lg
-           active:translate-y-0;
+           active:translate-y-0
+           will-change-transform;
   }
 
   .bouton-secondaire {
@@ -64,13 +69,14 @@
            text-texte-fort font-semibold
            px-7 py-4 rounded-bouton
            border border-bordure
-           transition-all duration-200
-           hover:-translate-y-0.5;
+           transition-[transform,background-color] duration-200
+           hover:-translate-y-0.5
+           will-change-transform;
   }
 
   .carte {
     @apply bg-surface rounded-card p-6 border border-bordure
-           transition-all duration-300
+           transition-[transform,box-shadow] duration-300
            hover:shadow-douce hover:-translate-y-1;
   }
 
@@ -81,41 +87,53 @@
 }
 
 @layer utilities {
-  /* Apparition en cascade du haut de page. Chaque élément part
-     légèrement plus bas et remonte, décalé de son voisin. */
+  /* Apparition en cascade du haut de page optimisée GPU */
   .entree {
-    animation: entree 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: entree 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    will-change: transform, opacity;
   }
 
   @keyframes entree {
     from {
       opacity: 0;
-      transform: translateY(24px);
+      transform: translate3d(0, 20px, 0);
     }
     to {
       opacity: 1;
-      transform: translateY(0);
+      transform: translate3d(0, 0, 0);
     }
   }
 
-  /* Flottaison des pastilles. Très lente et de faible amplitude :
-     un mouvement visible deviendrait vite agaçant sur une page
-     qu'on lit. */
-  .flottant {
-    animation: flottement 5s ease-in-out infinite;
-  }
+  /* Flottaison des pastilles : activée uniquement sur PC/Tablette (sm:)
+     pour préserver 100% du GPU mobile lors du scroll */
+  @media (min-width: 640px) {
+    .flottant {
+      animation: flottement 5s ease-in-out infinite;
+      will-change: transform;
+    }
 
-  .flottant-lent {
-    animation: flottement 7s ease-in-out infinite;
-    animation-delay: 1s;
+    .flottant-lent {
+      animation: flottement 7s ease-in-out infinite;
+      animation-delay: 1s;
+      will-change: transform;
+    }
   }
 
   @keyframes flottement {
     0%, 100% {
-      transform: translateY(0);
+      transform: translate3d(0, 0, 0);
     }
     50% {
-      transform: translateY(-10px);
+      transform: translate3d(0, -8px, 0);
     }
+  }
+
+  /* Utilitaire pour masquer les barres de défilement tout en gardant le scroll */
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
