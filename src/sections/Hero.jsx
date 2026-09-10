@@ -1,25 +1,13 @@
 import { Download, Zap, Store, Link2 } from 'lucide-react';
 import { marque, telechargement, chiffres } from '../data/contenu';
 
-/**
- * Le haut de la page.
- *
- * Trois choses doivent être comprises en cinq secondes : ce que fait
- * SORA, pour qui, et où appuyer.
- *
- * L'apparition se fait en cascade — titre, texte, boutons, image —
- * avec un décalage de 100 ms entre chaque. Tout arriver en même temps
- * donnerait un sursaut plutôt qu'un mouvement.
- */
 export default function Hero() {
   return (
     <section className="relative pt-28 sm:pt-36 pb-16 sm:pb-20 overflow-hidden">
-      {/* Halo orange derrière le texte. Assez léger pour ne pas gêner
-          la lecture, assez présent pour que la page ne commence pas
-          sur du blanc nu. */}
+      {/* Halo orange : Masqué ou très léger sur mobile (hidden sm:block) pour éviter de faire ramer le GPU */}
       <div
         aria-hidden
-        className="absolute -top-40 -right-32 w-[560px] h-[560px] rounded-full bg-orange-light blur-3xl opacity-60"
+        className="hidden sm:block absolute -top-40 -right-32 w-[560px] h-[560px] rounded-full bg-orange-light blur-2xl opacity-50 pointer-events-none"
       />
 
       <div className="conteneur relative">
@@ -37,9 +25,6 @@ export default function Hero() {
               className="text-4xl sm:text-5xl lg:text-[3.25rem] leading-[1.1] mb-5 entree"
               style={{ animationDelay: '100ms' }}
             >
-              {/* Un seul mot en orange suffit à casser le bloc de
-                  texte et à souligner ce qui compte : les produits
-                  arrivent ici, à Madagascar. */}
               Commande d'ailleurs,{' '}
               <span className="text-orange">reçois ici</span>
             </h1>
@@ -70,8 +55,6 @@ export default function Hero() {
               </a>
             </div>
 
-            {/* Ces trois informations évitent une déception :
-                quelqu'un sur iPhone doit le savoir avant de cliquer. */}
             <p
               className="text-sm text-texte-faible entree"
               style={{ animationDelay: '400ms' }}
@@ -101,19 +84,19 @@ export default function Hero() {
             className="relative entree"
             style={{ animationDelay: '250ms' }}
           >
-            {/* L'image porte déjà son propre téléphone : pas de
-                cadre, pas de bordure, pas d'arrondi. */}
             <div className="flex justify-center lg:justify-end">
+              {/* Image Hero : Priorité haute (fetchpriority/loading eager) avec GPU acceleration */}
               <img
                 src="/captures/accueil.png"
                 alt="L'écran d'accueil de l'application SORA"
-                className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[520px]"
+                width={520}
+                height={680}
+                loading="eager"
+                fetchPriority="high"
+                className="w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[520px] h-auto will-change-transform"
               />
             </div>
 
-            {/* Deux pastilles qui résument l'offre sans qu'on ait à
-                lire. Elles flottent très lentement — un mouvement
-                visible deviendrait agaçant sur une page qu'on lit. */}
             <div className="hidden lg:flex absolute top-20 left-0 items-center gap-2 bg-white rounded-bouton px-4 py-3 shadow-douce border border-bordure flottant">
               <Store size={17} className="text-dispo" />
               <span className="text-sm font-semibold text-texte-fort">
